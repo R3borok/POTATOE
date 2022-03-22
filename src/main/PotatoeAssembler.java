@@ -1,8 +1,13 @@
+package main;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import exception.PotatoeException;
+import main.exception.PotatoeException;
+import main.microcode.MicroCodeAssembler;
+import main.code.CodeAssembler;
+import main.code.CodeAssemblerOutput;
 
 public final class PotatoeAssembler {
  
@@ -31,23 +36,45 @@ public final class PotatoeAssembler {
 
         for (String currentArg : args) {
             if (currentArg.toLowerCase().startsWith(MICRO_CODE_ARG)) {
-                System.out.println("Assembling Micro-code data...");
-
-                final byte[] microCodeBytes = MicroCodeAssembler.assembleMicroCode();
-                printBytesAsHexData(microCodeBytes, RAM_SIZE);
+                assembleMicrocode();
             }
 
             if (currentArg.toLowerCase().startsWith(FILE_ASSEMBLY_ARG)) {
-                String filePathToAssemble = currentArg.split("=")[1];
-                if (!Files.exists(Paths.get(filePathToAssemble))) {
-                    throw new PotatoeException("Could not find passed file: " + filePathToAssemble);
-                }
-
-                System.out.println("Assembling code data...");
-                final File fileToAssemble = new File(filePathToAssemble);
-                final byte[] codeBytes = CodeAssembler.assembleCode(fileToAssemble);
-                printBytesAsHexData(codeBytes, RAM_SIZE);
+                String filePath = currentArg.split("=")[1];
+                assemblePotFile(filePath);
             }
+        }
+
+        System.out.println("Done.");
+    }
+
+    private static void assembleMicrocode() {
+        System.out.println("Assembling Micro-main.code data...");
+
+        final byte[] microCodeBytes = MicroCodeAssembler.assembleMicroCode();
+        printBytesAsHexData(microCodeBytes, RAM_SIZE);
+    }
+
+    private static void assemblePotFile(final String filePath) throws PotatoeException {
+        if (!Files.exists(Paths.get(filePath))) {
+            throw new PotatoeException("Could not find passed file: " + filePath);
+        }
+
+        System.out.println("Assembling main.code data...");
+        final File fileToAssemble = new File(filePath);
+        final CodeAssembler codeAssembler = new CodeAssembler(fileToAssemble);
+        final CodeAssemblerOutput output = codeAssembler.assembleCode();
+
+        output.getWarnings().forEach((warning) -> System.out.println("WARN " + warning));
+
+        if(output.getErrors().isEmpty()) {
+
+            printBytesAsHexData(output.getAssembledBytes(), RAM_SIZE);
+
+        } else {
+
+            output.getErrors().forEach((error) -> System.out.println("ERROR :" + error));
+
         }
     }
 
