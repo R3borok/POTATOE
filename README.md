@@ -36,6 +36,7 @@ Intructions consist of the following format:
 
 Instructions (XXXX) - Sub-Modes (Y):
 (* updates the flags registers)
+
 | hexID | Description                                    | .pot Command     |
 | ----- | ---------------------------------------------- | ---------------- |
 | 0x0   | [MOV] (Move)                                   |                  |
