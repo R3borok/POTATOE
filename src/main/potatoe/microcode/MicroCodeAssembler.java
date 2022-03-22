@@ -1,4 +1,4 @@
-package microcode;
+package potatoe.microcode;
 
 public final class MicroCodeAssembler {
     

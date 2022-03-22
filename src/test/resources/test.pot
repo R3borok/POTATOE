@@ -1,0 +1,5 @@
+@origin 8000
+
+@import MATH_BASIC
+
+loop:

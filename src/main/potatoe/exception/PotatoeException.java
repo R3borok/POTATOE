@@ -1,4 +1,4 @@
-package exception;
+package potatoe.exception;
 
 public class PotatoeException extends Exception {
     
