@@ -1,4 +1,4 @@
-package main.code;
+package code;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import main.exception.PotatoeException;
+import exception.PotatoeException;
 
 public final class CodeAssembler {
 

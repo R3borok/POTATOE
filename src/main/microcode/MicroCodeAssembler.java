@@ -1,4 +1,4 @@
-package main.microcode;
+package microcode;
 
 public final class MicroCodeAssembler {
     

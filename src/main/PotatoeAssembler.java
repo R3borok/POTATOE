@@ -1,13 +1,12 @@
-package main;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import main.exception.PotatoeException;
-import main.microcode.MicroCodeAssembler;
-import main.code.CodeAssembler;
-import main.code.CodeAssemblerOutput;
+import exception.PotatoeException;
+import microcode.MicroCodeAssembler;
+import code.CodeAssembler;
+import code.CodeAssemblerOutput;
 
 public final class PotatoeAssembler {
  
