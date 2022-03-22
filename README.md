@@ -24,7 +24,7 @@ Basic I/O with one byte size.
 Instructions are one byte and followed by one or two more bytes which are buffered in the instruction register. <br>
 Intructions consist of the following format:
 
-<main.code>XXXXYURR BBBBBBBB [BBBBBBBBB]</main.code>
+<code>XXXXYURR BBBBBBBB [BBBBBBBBB]</code>
 
 | bitID       | Description                 |
 | ----------- | --------------------------- |
@@ -89,13 +89,14 @@ Instructions (XXXX) - Sub-Modes (Y):
 
 ## Micro-main.code assembler
 
-When running the application with <main.code>-mc</main.code> it will generate the micro-main.code binary data in hex format. This main.code is used to drive the internal control logic of the CPU.
+When running the application with <code>-mc</code> it will generate the micro-main.code binary data in hex format. 
+This main.code is used to drive the internal control logic of the CPU.
 
 ### Control-word
 
 The control word is a 32 bit (4 byte) long sequence with the following format:
 
-<main.code>HBBBBBBB BBBBBBBB BBBBBBBBB YYYAXRRE</main.code>
+<code>HBBBBBBB BBBBBBBB BBBBBBBBB YYYAXRRE</code>
 
 | bitID       | Description                 |
 | ----------- | --------------------------- |
@@ -121,10 +122,10 @@ The control word is a 32 bit (4 byte) long sequence with the following format:
 
 ## Code assembler
 
-When running the application with <main.code>-file=TEST-FILE.pot</main.code> the passed file will be parsed and converted to binary data in hex format.<br>
+When running the application with <code>-file=TEST-FILE.pot</code> the passed file will be parsed and converted to binary data in hex format.<br>
 Whenever the passed file can not be assembled the output should be structured in the following format:
 
-<main.code>ERROR|WARN (line:column): error-description</main.code>
+<code>ERROR|WARN (line:column): error-description</code>
 
 Available commands can be found under section [instructions](#instructions).
 
