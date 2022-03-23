@@ -1,6 +1,6 @@
 # POTATOE-1
 
-POTATOE-1 CPU documentation for architecture and binary machine main.code structure and generation/assembly.
+POTATOE-1 CPU documentation for architecture and binary machine code structure and generation/assembly.
 
 ## Architecture
 
@@ -14,7 +14,7 @@ Basic I/O with one byte size.
 - 4 general purpose 8 bit registers (addressed by 2 bits RR)
 - ALU with 8 bit operations
     - arithmetic: add, sub, add with carry
-    - logic: and, or, xor (not with 0xFF)
+    - logic: and, or, xor (logical not/invert with 0xFF)
 - 16 bit addressable 8 bit RAM
 - 16 bit addressable 8 bit VRAM
 - 8 bit stack with 8 bit stackpointer (max size 255)
@@ -89,21 +89,21 @@ Instructions (XXXX) - Sub-Modes (Y):
 
 ## Micro-main.code assembler
 
-When running the application with <code>-mc</code> it will generate the micro-main.code binary data in hex format. 
-This main.code is used to drive the internal control logic of the CPU.
+When running the application with <code>-mc</code> it will generate the micro-code binary data in hex format. 
+This code is used to drive the internal control logic of the CPU.
 
 ### Control-word
 
 The control word is a 32 bit (4 byte) long sequence with the following format:
 
-<code>HBBBBBBB BBBBBBBB BBBBBBBBB YYYAXRRE</code>
+<code>H------- LLLIBBBP ---SSZMMN YYYAXRRE</code>
 
 | bitID       | Description                 |
 | ----------- | --------------------------- |
 | H           | clock halt signal           |
 | E           | register enable             |
 | RR          | register identifier         |
-|             | [register](#registers)   |
+|             | [register](#registers)      |
 | X           | register operation          |
 |             | 0: load                     |
 |             | 1: out                      |
@@ -117,6 +117,36 @@ The control word is a 32 bit (4 byte) long sequence with the following format:
 |             | 5: logical xor              |
 |             | 6: -                        |
 |             | 7: -                        |
+| N           | ram enable                  |
+| MM          | 0: load                     |
+|             | 1: load address low byte    |
+|             | 2: load address high byte   |
+|             | 3: out                      |
+| Z           | stack enable                |
+| SS          | 0: increment stack pointer  |
+|             | 1: load                     |
+|             | 2: out                      |
+|             | 3: -                        |
+| P           | program counter enable      |
+| BBB         | 0:                          |
+|             | 1:                          |
+|             | 2:                          |
+|             | 3:                          |
+|             | 4:                          |
+|             | 5:                          |
+|             | 6:                          |
+|             | 7:                          |
+| I           | instruction register enable |
+| LLL         | 0:                          |
+|             | 1:                          |
+|             | 2:                          |
+|             | 3:                          |
+|             | 4:                          |
+|             | 5:                          |
+|             | 6:                          |
+|             | 7:                          |
+|             |                             |
+|             |                             |
 |             |                             |
 |             |                             |
 
