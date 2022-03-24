@@ -34,7 +34,7 @@ Intructions consist of the following format:
 | RR          | the register identifier     |
 | BBBBBBBB    | buffered instruction byte   |
 
-Instructions (XXXX) - Sub-Modes (Y):
+Instructions (XXXX) - Sub-Modes (Y): <br>
 (* updates the flags registers)
 
 | hexID | Description                                    | .pot Command     |
@@ -87,7 +87,7 @@ Instructions (XXXX) - Sub-Modes (Y):
 | 10    | C register                  |
 | 11    | D register                  |
 
-## Micro-main.code assembler
+## Micro-code assembler
 
 When running the application with <code>-mc</code> it will generate the micro-code binary data in hex format. 
 This code is used to drive the internal control logic of the CPU.

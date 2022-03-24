@@ -49,7 +49,7 @@ public final class PotatoeAssembler {
     }
 
     private static void assembleMicrocode() {
-        System.out.println("Assembling Micro-main.code data...");
+        System.out.println("Assembling Micro-code data...");
 
         final byte[] microCodeBytes = MicroCodeAssembler.assembleMicroCode();
         printBytesAsHexData(microCodeBytes, RAM_SIZE);
@@ -60,7 +60,7 @@ public final class PotatoeAssembler {
             throw new PotatoeException("Could not find passed file: " + filePath);
         }
 
-        System.out.println("Assembling main.code data...");
+        System.out.println("Assembling code data...");
         final File fileToAssemble = new File(filePath);
         final CodeAssembler codeAssembler = new CodeAssembler(fileToAssemble);
         final CodeAssemblerOutput output = codeAssembler.assembleCode();
@@ -73,7 +73,7 @@ public final class PotatoeAssembler {
 
         } else {
 
-            output.getErrors().forEach((error) -> System.out.println("ERROR :" + error));
+            output.getErrors().forEach((error) -> System.out.println("ERROR " + error));
 
         }
     }

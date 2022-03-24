@@ -6,7 +6,9 @@ public enum Registers {
     AREG(AssemblyData.AREG),
     BREG(AssemblyData.BREG),
     CREG(AssemblyData.CREG),
-    DREG(AssemblyData.DREG);
+    DREG(AssemblyData.DREG),
+
+    UNUSED(AssemblyData.AREG);
 
     private final byte identifier;
 
@@ -16,5 +18,14 @@ public enum Registers {
 
     public byte getIdentifier() {
         return this.identifier;
+    }
+
+    public static Registers fromString(final String registerString) {
+        try {
+            return Enum.valueOf(Registers.class, registerString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+        }
+
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package potatoe.code;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class CodeAssemblerOutput {
@@ -48,6 +49,10 @@ public final class CodeAssemblerOutput {
         this.errorList.add(new OutputNotification(line, column, message));
     }
 
+    public void addErrors(final List<OutputNotification> errors) {
+        this.errorList.addAll(errors);
+    }
+
     public List<OutputNotification> getErrors() {
         return this.errorList;
     }
@@ -56,8 +61,23 @@ public final class CodeAssemblerOutput {
         warningList.add(new OutputNotification(line, column, message));
     }
 
+    public void addWarnings(final List<OutputNotification> warnings) {
+        this.warningList.addAll(warnings);
+    }
+
     public List<OutputNotification> getWarnings() {
         return this.warningList;
+    }
+
+    public void addAssembledBytes(final byte[] assembledBytes) {
+        final int finalSize = (this.assembledBytes.length + assembledBytes.length);
+        final byte[] finalBytes = Arrays.copyOf(this.assembledBytes, finalSize);
+
+        for (int i=0; i<assembledBytes.length; i++) {
+            finalBytes[(this.assembledBytes.length + i)] = assembledBytes[i];
+        }
+
+        this.setAssembledBytes(finalBytes);
     }
 
     public void setAssembledBytes(final byte[] assembledBytes) {

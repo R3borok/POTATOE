@@ -2,4 +2,18 @@
 
 @import MATH_BASIC
 
+@rom 128
+@declare TEST 500
+
+@vars 128
+@declare
+
 loop:
+    MOV areg, 255
+
+    MOV breg, 0xff
+
+    mov creg, 0+1
+
+    LDR dreg, [300]
+    LDR dreg, [0x01FF]
