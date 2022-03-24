@@ -38,13 +38,11 @@ Instructions (XXXX) - Sub-Modes (Y): <br>
 (* updates the flags registers)
 
 | hexID | Description                                    | .pot Command     |
-| ----- | ---------------------------------------------- | ---------------- |
+|-------|------------------------------------------------|------------------|
 | 0x0   | [MOV] (Move)                                   |                  |
 |       | MOV: move imm8 into register                   | MOV reg, imm8    |
 |       | MVR: move register into register               | MVR reg, reg     |
-| 0x1   | [LOD] (Load)                                   |                  |
-|       | LDR: load adr16 value into register            | LDR reg, [adr16] |
-|       | LDI: load input byte into register             | LDI reg          |
+| 0x1   | LDR (Load): load adr16 value into register     | LDR reg, [adr16] |
 | 0x2   | [STR] (Store)                                  |                  |
 |       | STR: store register at ram adr16               | STR reg, [adr16] |
 |       | STV: store register at vram adr16              | STV reg, [adr16] |
@@ -53,9 +51,13 @@ Instructions (XXXX) - Sub-Modes (Y): <br>
 |       | PSR: push register to stack                    | PSR reg          |
 | 0x4   | POP (StackPop): pop stack value into register  | POP reg          |
 | 0x5   | JMP (Jump): jump to ram adr16                  | JMP [adr16]      |
-| 0x6   |                                                |                  |
+| 0x6   | [JPC] (Jump with condition)                    |                  |
+|       | JPE: jump if equal (flag)                      | JPE [adr16]      |
+|       | JPZ: jump if zero (flag)                       | JPZ [adr16]      |
 | 0x7   |                                                |                  |
-| 0x8   |                                                |                  |
+| 0x8   | [IO] (Input / Output)                          |                  |
+|       | IOI: load input to register                    | IOI reg          |
+|       | IOO: store register to output                  | IOO reg          |
 | 0x9   | [ADD] (Add) *                                  |                  |
 |       | ADI: add im8 to register                       | ADI reg, imm8    |
 |       | ADA: add adr16 from ram to register            | ADA reg, [adr16] |
