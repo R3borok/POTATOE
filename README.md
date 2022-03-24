@@ -155,7 +155,7 @@ The control word is a 32 bit (4 byte) long sequence with the following format:
 When running the application with <code>-file=TEST-FILE.pot</code> the passed file will be parsed and converted to binary data in hex format.<br>
 Whenever the passed file can not be assembled the output should be structured in the following format:
 
-<code>ERROR|WARN (line:column): error-description</code>
+<code>ERROR|WARN (line:column): description</code>
 
 Available commands can be found under section [instructions](#instructions).
 

@@ -120,8 +120,8 @@ public final class CodeAssembler {
 
         final AtomicReference<Registers> affectedRegister = new AtomicReference<>(null);
         final AtomicReference<Buffered> buffered = new AtomicReference<>(null);
-        Byte byteBuff = 0x00000000;
-        Short shortBuff = 0x0000000000000000;
+        final AtomicReference<Byte> byteBuff = new AtomicReference<>((byte) 0x00000000);
+        final AtomicReference<Short> shortBuff = new AtomicReference<>((short) 0x0000000000000000);
 
         if (arg1.equals(PotCommands.CommandArg.NONE)) {
 
@@ -153,7 +153,6 @@ public final class CodeAssembler {
             // second arg was a register
             if (!secondRegister.equals(Registers.UNUSED)) {
                 buffered.set(Buffered.IMM8);
-                byteBuff = secondRegister.get().getIdentifier();
             }
         }
 
@@ -171,9 +170,9 @@ public final class CodeAssembler {
 
         byte[] bufferedBytes;
         if (buffered.get().equals(Buffered.IMM8)) {
-            bufferedBytes = new byte[] { byteBuff };
+            bufferedBytes = new byte[] { byteBuff.get() };
         } else if (buffered.get().equals(Buffered.ADR16)) {
-            bufferedBytes = new byte[] { shortBuff.byteValue(), (byte) (shortBuff >> 8) };
+            bufferedBytes = new byte[] { shortBuff.get().byteValue(), (byte) (shortBuff.get() >> 8) };
         } else {
             throw new PotatoeRuntimeException("Buffered state for command is unknown: " + buffered);
         }
@@ -205,7 +204,8 @@ public final class CodeAssembler {
     }
 
     private void processArguments(final PotCommands.CommandArg arg, final String strArg,
-                                  AtomicReference<Registers> affectedRegister, AtomicReference<Buffered> buffered, byte byteBuff, short shortBuff,
+                                  final AtomicReference<Registers> affectedRegister, final AtomicReference<Buffered> buffered,
+                                  final AtomicReference<Byte> byteBuff, final AtomicReference<Short> shortBuff,
                                   final CodeAssemblerOutput lineOutput) {
         int numericValue = 0;
         switch (arg) {
@@ -226,7 +226,7 @@ public final class CodeAssembler {
                     return;
                 }
 
-                byteBuff = (byte) numericValue;
+                byteBuff.set((byte) numericValue);
                 if (numericValue > BYTE_MAX_VALUE) {
                     // TODO add line and column
                     lineOutput.addWarning(0, 0, "Value bigger than one byte. Cropped to fit: " +
@@ -247,7 +247,7 @@ public final class CodeAssembler {
                     return;
                 }
 
-                shortBuff = (short) numericValue;
+                shortBuff.set((short) numericValue);
                 if (numericValue > SHORT_MAX_VALUE) {
                     // TODO add line and column
                     lineOutput.addWarning(0, 0, "Value bigger than one byte. Cropped to fit: " +
